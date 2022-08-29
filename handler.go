@@ -1,6 +1,8 @@
 package prometheus
 
 import (
+	"context"
+
 	coregas "github.com/go-sensors/core/gas"
 	corepm "github.com/go-sensors/core/pm"
 	"github.com/go-sensors/core/units"
@@ -47,25 +49,25 @@ func NewMetricHandlerWithLabels(labels *Labels) *MetricHandler {
 }
 
 // Handles an individual concentration measurement
-func (h *MetricHandler) HandleGasConcentration(g *coregas.Concentration) error {
+func (h *MetricHandler) HandleGasConcentration(_ context.Context, g *coregas.Concentration) error {
 	gas.SetWithLabels(g, h.labels)
 	return nil
 }
 
 // Handles an individual concentration measurement
-func (h *MetricHandler) HandleRelativeHumidity(rh *units.RelativeHumidity) error {
+func (h *MetricHandler) HandleRelativeHumidity(_ context.Context, rh *units.RelativeHumidity) error {
 	humidity.SetWithLabels(rh, h.labels)
 	return nil
 }
 
 // Handles an individual concentration measurement
-func (h *MetricHandler) HandlePMConcentration(c *corepm.Concentration) error {
+func (h *MetricHandler) HandlePMConcentration(_ context.Context, c *corepm.Concentration) error {
 	pm.SetWithLabels(c, h.labels)
 	return nil
 }
 
 // Handles an individual temperature measurement
-func (h *MetricHandler) HandleTemperature(t *units.Temperature) error {
+func (h *MetricHandler) HandleTemperature(_ context.Context, t *units.Temperature) error {
 	temperature.SetWithLabels(t, h.labels)
 	return nil
 }
